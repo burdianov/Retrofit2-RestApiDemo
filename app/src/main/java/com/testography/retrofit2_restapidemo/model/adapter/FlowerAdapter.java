@@ -6,8 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.testography.retrofit2_restapidemo.R;
+import com.testography.retrofit2_restapidemo.model.Flower;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FlowerAdapter extends RecyclerView.Adapter<FlowerAdapter.Holder> {
+
+    private List<Flower> mFlowers;
+
+    public FlowerAdapter() {
+        mFlowers = new ArrayList<>();
+    }
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -25,7 +35,12 @@ public class FlowerAdapter extends RecyclerView.Adapter<FlowerAdapter.Holder> {
 
     @Override
     public int getItemCount() {
-        return 20;
+        return mFlowers.size();
+    }
+
+    public void addFlower(Flower flower) {
+        mFlowers.add(flower);
+        notifyDataSetChanged();
     }
 
     public class Holder extends RecyclerView.ViewHolder {
