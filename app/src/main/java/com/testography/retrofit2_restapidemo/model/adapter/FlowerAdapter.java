@@ -4,7 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.testography.retrofit2_restapidemo.R;
 import com.testography.retrofit2_restapidemo.model.Flower;
 
@@ -31,6 +34,15 @@ public class FlowerAdapter extends RecyclerView.Adapter<FlowerAdapter.Holder> {
     @Override
     public void onBindViewHolder(Holder holder, int position) {
 
+        Flower currentFlower = mFlowers.get(position);
+
+        holder.mName.setText(currentFlower.getName());
+        holder.mPrice.setText("$" + Double.toString(currentFlower.getPrice()));
+
+        Picasso.with(holder.itemView.getContext())
+                .load(("http://services.hanselandpetal.com/photos/"
+                        + currentFlower.getPhoto()))
+                .into(holder.mPhoto);
     }
 
     @Override
@@ -45,8 +57,15 @@ public class FlowerAdapter extends RecyclerView.Adapter<FlowerAdapter.Holder> {
 
     public class Holder extends RecyclerView.ViewHolder {
 
+        private ImageView mPhoto;
+        private TextView mName, mPrice;
+
         public Holder(View itemView) {
             super(itemView);
+
+            mPhoto = (ImageView) itemView.findViewById(R.id.flowerPhoto);
+            mName = (TextView) itemView.findViewById(R.id.flowerName);
+            mPrice = (TextView) itemView.findViewById(R.id.flowerPrice);
         }
     }
 

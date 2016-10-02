@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager
+                (getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         mFlowerAdapter = new FlowerAdapter();
         mRecyclerView.setAdapter(mFlowerAdapter);
     }
