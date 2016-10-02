@@ -16,10 +16,13 @@ import java.util.List;
 
 public class FlowerAdapter extends RecyclerView.Adapter<FlowerAdapter.Holder> {
 
+    private final FlowerClickListener mListener;
     private List<Flower> mFlowers;
 
-    public FlowerAdapter() {
+
+    public FlowerAdapter(FlowerClickListener listener) {
         mFlowers = new ArrayList<>();
+        mListener = listener;
     }
 
     @Override
@@ -55,7 +58,11 @@ public class FlowerAdapter extends RecyclerView.Adapter<FlowerAdapter.Holder> {
         notifyDataSetChanged();
     }
 
-    public class Holder extends RecyclerView.ViewHolder {
+    public Flower getSelectedFlower(int position) {
+        return mFlowers.get(position);
+    }
+
+    public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView mPhoto;
         private TextView mName, mPrice;
@@ -66,7 +73,16 @@ public class FlowerAdapter extends RecyclerView.Adapter<FlowerAdapter.Holder> {
             mPhoto = (ImageView) itemView.findViewById(R.id.flowerPhoto);
             mName = (TextView) itemView.findViewById(R.id.flowerName);
             mPrice = (TextView) itemView.findViewById(R.id.flowerPrice);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mListener.onClick(getLayoutPosition());
         }
     }
 
+    public interface FlowerClickListener {
+        void onClick(int position);
+    }
 }
